@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block title %}Livros{% endblock %}
+{% block content %}
+<h1 class="mb">Cadastrar Livro</h1>
+<form method="POST" novalidate>
+  {{ form.hidden_tag() }}
+  <div class="field">
+    <label>{{ form.titulo.label }}</label>
+    {{ form.titulo(size=40) }}
+    {% for e in form.titulo.errors %}<small class="err">{{ e }}</small>{% endfor %}
+  </div>
+  <div class="field">
+    <label>{{ form.ano_publicacao.label }}</label>
+    {{ form.ano_publicacao() }}
+    {% for e in form.ano_publicacao.errors %}<small class="err">{{ e }}</small>{% endfor %}
+  </div>
+  <div class="field">
+    <label>{{ form.autor.label }}</label>
+    {{ form.autor() }}
+    {% for e in form.autor.errors %}<small class="err">{{ e }}</small>{% endfor %}
+  </div>
+  {{ form.submit() }}
+</form>
+
+<h2 class="mt">Livros cadastrados</h2>
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Título</th>
+      <th>Ano</th>
+      <th>Autor</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for livro in livros %}
+      <tr>
+        <td>{{ livro.id }}</td>
+        <td>{{ livro.titulo }}</td>
+        <td>{{ livro.ano_publicacao }}</td>
+        <td>{{ livro.autor.nome }}</td>
+      </tr>
+    {% else %}
+      <tr><td colspan="4">Nenhum livro cadastrado.</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

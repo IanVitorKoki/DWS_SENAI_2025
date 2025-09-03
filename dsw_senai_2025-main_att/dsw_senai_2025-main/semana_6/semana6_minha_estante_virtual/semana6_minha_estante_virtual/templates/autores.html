@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}Autores{% endblock %}
+{% block content %}
+<h1 class="mb">Cadastrar Autor</h1>
+<form method="POST" novalidate>
+  {{ form.hidden_tag() }}
+  <div class="field">
+    <label>{{ form.nome.label }}</label>
+    {{ form.nome(size=40) }}
+    {% for e in form.nome.errors %}<small class="err">{{ e }}</small>{% endfor %}
+  </div>
+  {{ form.submit() }}
+</form>
+
+<h2 class="mt">Autores cadastrados</h2>
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Nome</th>
+      <th>Qtd. Livros</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for autor in autores %}
+      <tr>
+        <td>{{ autor.id }}</td>
+        <td>{{ autor.nome }}</td>
+        <td>{{ autor.livros|length }}</td>
+      </tr>
+    {% else %}
+      <tr><td colspan="3">Nenhum autor cadastrado.</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

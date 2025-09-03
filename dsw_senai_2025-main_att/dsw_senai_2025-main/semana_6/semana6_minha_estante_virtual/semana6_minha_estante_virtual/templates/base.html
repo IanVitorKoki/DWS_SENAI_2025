@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>{% block title %}Minha Estante Virtual{% endblock %}</title>
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; margin:0; padding:0; background:#f7f7fb; color:#222; }
+    header { background:#ffffff; padding:12px 20px; border-bottom:1px solid #eee; position:sticky; top:0; }
+    nav a { margin-right:14px; text-decoration:none; }
+    .container { max-width:900px; margin:24px auto; background:#fff; border-radius:12px; padding:24px; box-shadow:0 6px 24px rgba(0,0,0,.06); }
+    .mb { margin-bottom:12px; }
+    .mt { margin-top:16px; }
+    .field { margin-bottom:10px; display:flex; flex-direction:column; gap:6px; }
+    input, select, button { padding:10px; border:1px solid #ccc; border-radius:8px; }
+    button { cursor:pointer; }
+    table { width:100%; border-collapse:collapse; margin-top:8px; }
+    th, td { padding:10px; border-bottom:1px solid #eee; text-align:left; }
+    .err { color:#b00020; display:block; }
+    .flash { padding:10px; border-radius:8px; margin-bottom:10px; }
+    .flash.success { background:#e8f5e9; }
+    .flash.warning { background:#fff8e1; }
+  </style>
+</head>
+<body>
+  <header>
+    <nav>
+      <a href="{{ url_for('livros') }}">Livros</a>
+      <a href="{{ url_for('autores') }}">Autores</a>
+    </nav>
+  </header>
+  <main class="container">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for cat, msg in messages %}
+          <div class="flash {{ cat }}">{{ msg }}</div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+    {% block content %}{% endblock %}
+  </main>
+</body>
+</html>
